@@ -2,6 +2,8 @@
 
 const EventEmitter = require('events').EventEmitter;
 
+const RECEIVE_EVENT = "receive";
+
 /** Class representing a MessageQueue */
 class MessageQueue extends EventEmitter {
 	constructor(queue) {
@@ -9,20 +11,19 @@ class MessageQueue extends EventEmitter {
 		this.processing = false;
 	}
 
-	recieve() {
+	send(message) {
+		this.queue.enqueue(message);
+		if (!this.listenerCount(RECEIVE_EVENT)) {
+			return;
+		}
 		if (this.processing) {
 			return;
 		}
 		this.processing = true;
 		for (let message of this.queue) {
-			this.emit("recieve", message);
+			this.emit(RECEIVE_EVENT, message);
 		}
 		this.processing = false;
-	}
-
-	send(message) {
-		this.queue.enqueue(message);
-		this.recieve();
 	}
 }
 

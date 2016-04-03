@@ -6,18 +6,16 @@ const Queue = require('../src/Queue');
 
 describe('MessageDispatcher', function() {
 
-	let messageDispatcher;
+	let messageDispatcher, messageQueue, queue;
 
 	beforeEach(function() {
-		messageDispatcher = new MessageDispatcher(new MessageQueue(new Queue()));
+		queue = new Queue();
+		messageQueue = new MessageQueue(queue);
+		messageDispatcher = new MessageDispatcher(messageQueue);
 	});
 
-	describe('new Queue()', function() {
-		it('should create new Queue object', function() {
-			queue.should.be.Object();
-			queue.should.be.instanceof(Queue);
-		});
-		it('should be iterable', function() {
+	describe('new MessageDispatcher()', function() {
+		it('should be', function() {
 			queue.should.be.iterable();
 		});
 	});
