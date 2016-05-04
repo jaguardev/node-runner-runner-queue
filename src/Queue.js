@@ -31,7 +31,7 @@ class Queue {
 	}
 
 	/**
-	 * Returns all objects from the Queue
+	 * Removes all objects from the Queue
 	 */
 	clear() {
 		this.array.length = 0;
@@ -58,7 +58,7 @@ class Queue {
 	 * @returns {*}
 	 */
 	* [Symbol.iterator]() {
-		while (this.array.length) {
+		while (this.size()) {
 			yield this.dequeue();
 		}
 	}

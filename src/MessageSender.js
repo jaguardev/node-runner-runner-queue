@@ -1,6 +1,6 @@
 'use strict';
 
-class MessageSender extends EventEmitter {
+class MessageSender {
 	constructor(messageQueue) {
 		this.messageQueue = messageQueue;
 	}

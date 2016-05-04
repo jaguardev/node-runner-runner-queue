@@ -1,16 +1,24 @@
 'use strict';
 
-const EventEmitter = require('events').EventEmitter;
-const RECEIVE_EVENT = require('./MessageQueue').RECEIVE_EVENT;
-
-class MessageReceiver extends EventEmitter {
+class MessageReceiver {
 	constructor(messageQueue) {
 		this.messageQueue = messageQueue;
-		this.messageQueue.on(RECEIVE_EVENT, (message) => this.recieve(message));
+		this.messageQueue.receive((message)=>this.recieve(message));
+		this.handlers = [];
 	}
 
+	registerHandler(handler, filter) {
+		this.handlers.push({handler: handler, filter: filter || function(){return true;}});
+	}
+	
 	recieve(message) {
-		this.emit(message.topic, message.name, message.parameters);
+		this.handlers.forEach(function(handler) {
+			let reducer = handler.handler;
+			let filter = handler.filter;
+			if (filter(message)) {
+				reducer(message);
+			}
+		});
 	}
 }
 
