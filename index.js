@@ -1,17 +1,6 @@
 'use strict';
 
-const Queue = require('./src/Queue');
-const MessageQueue = require('./src/MessageQueue');
-const MessageSender = require('./src/MessageSender');
-const MessageReceiver = require('./src/MessageReceiver');
-const EventEmitter = require('events').EventEmitter;
-
-
-let queue = new Queue();
-let eventEmitter = new EventEmitter();
-let messageQueue = new MessageQueue(queue, eventEmitter);
-
-let defaultMessageSender = new MessageSender(messageQueue);
-let defaultMessageReceiver = new MessageReceiver(messageQueue);
-
-console.log("xyu");
+module.exports.Queue = require('./src/Queue');
+module.exports.MessageQueue = require('./src/MessageQueue');
+module.exports.MessageSender = require('./src/MessageSender');
+module.exports.MessageReceiver = require('./src/MessageReceiver');

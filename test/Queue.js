@@ -1,6 +1,6 @@
 'use strict';
 
-const Queue = require('../src/Queue');
+const Queue = require('..').Queue;
 
 describe('Queue', function() {
 

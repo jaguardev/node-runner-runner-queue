@@ -16,6 +16,17 @@ let defaultMessageReceiver = new MessageReceiver(messageQueue);
 
 console.log("start");
 
+console.log(process.stdout.columns);
+
+process.stdin.setEncoding('utf8');
+
+process.stdin.on('readable', () => {
+  var chunk = process.stdin.read();
+  if (chunk !== null) {
+    process.stdout.write(`data: ${chunk}`);
+  }
+});
+
 defaultMessageReceiver.registerHandler(function(message) {
 	console.log(message);
 });
