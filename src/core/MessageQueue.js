@@ -1,7 +1,8 @@
 'use strict';
 
-const MESSAGE_EVENT = "message";
+const MESSAGE_EVENT = Symbol('message');
 
+//what about errors?
 class MessageQueue {
 	constructor(queue, eventEmitter) {
 		this.queue = queue;
@@ -21,8 +22,12 @@ class MessageQueue {
 		this.processing = false;
 	}
 	
-	receive(cb) {
-		this.eventEmitter.on(MESSAGE_EVENT, cb);
+	startReceive(cb) {
+		this.eventEmitter.addListener(MESSAGE_EVENT, cb);
+	}
+	
+	stopReceive(cb) {
+		this.eventEmitter.removeListener(MESSAGE_EVENT, cb);
 	}
 }
 
