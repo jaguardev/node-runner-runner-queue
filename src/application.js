@@ -4,16 +4,13 @@ const Queue = require('./collection/Queue');
 const MessageQueue = require('./core/MessageQueue');
 const EventEmitter = require('events').EventEmitter;
 
-const Application = require('./module/application');
+const ApplicationHandler = require('./application/Handler');
 
 let queue = new Queue();
 
 let eventEmitter = new EventEmitter();
 let messageQueue = new MessageQueue(queue, eventEmitter);
 
-//hold queue
-messageQueue.processing = true;
-let application = new Application(messageQueue);
-messageQueue.processing = false;
+let application = new ApplicationHandler(messageQueue);
 
 module.exports = application;

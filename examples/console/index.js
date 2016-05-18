@@ -1,12 +1,18 @@
 'use strict';
 
 let application = require('../..').application;
-
-application.messageQueue.startReceive(function(message) {
-	console.log(message);
-});
-
-application.run();
+application.messageQueue.send("message 1");
+let HelloWorldHandler = require('../../src/hello-world/Handler');
+application.messageQueue.send("message 2");
+application.start();
+application.messageQueue.send("message 3");
+let helloWorldHandler = new HelloWorldHandler(application.messageQueue);
+application.messageSender.sendStartHandler(helloWorldHandler);
+application.messageQueue.send("message 4");
+application.messageSender.sendStopHandler(helloWorldHandler);
+application.messageQueue.send("message 5");
+application.messageQueue.send("message 6");
+//application.messageSender.sendLog();
 
 //const util = require('util');
 //
